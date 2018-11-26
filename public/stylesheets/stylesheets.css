@@ -1,0 +1,25 @@
+.navbar-nav > li{
+  padding-left:30px;
+  padding-right:30px;
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+.new-form {
+  margin-top: 20px;
+  padding: 30px;
+}
+
+.card {
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+.card-img-top {
+  padding: 50px;
+}
