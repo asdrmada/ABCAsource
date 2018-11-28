@@ -16,20 +16,11 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 
 // faker/DB seed
-var testData = {
-    title:   faker.name.title(),
-    image:   faker.image.image(),
-    opener:  faker.lorem.sentence(),
-    body  :  faker.lorem.paragraph(),
-    created: faker.date.recent()
-};
-
-console.log(testData);
-
+seedDB();
     
 // Routing
 app.get("/", function(req, res){
-      res.render("show");
+      res.render("show", {blog: blog});
     });
     
 app.get("/index", function(req, res){
