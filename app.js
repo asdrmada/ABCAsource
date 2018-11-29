@@ -20,12 +20,28 @@ seedDB();
     
 // Routing
 app.get("/", function(req, res){
-      res.render("show", {blog: blog});
+      res.redirect("/blogs");
     });
     
-app.get("/index", function(req, res){
-      res.render("index");
+app.get("/blogs", function(req, res){
+    Blog.find({}, function(err, blogs){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("index", {blogs: blogs});
+        }
     });
+});
+
+app.get("/blogs/:id", function(req, res){
+    Blog.findById(req.params.id, function(err, foundBlog){
+        if(err){
+            res.redirect("index");
+        } else {
+            res.render("show", {blog: foundBlog});
+        }
+    });
+});
     
 app.get("/new", function(req, res){
       res.render("new");

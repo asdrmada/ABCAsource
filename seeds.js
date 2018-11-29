@@ -21,7 +21,7 @@ var testData = [ {
     
 
 function seedDB(){
-    Blog.remove({}, function(err){
+    Blog.deleteMany({}, function(err){
         if(err){
           console.log(err);
         }
