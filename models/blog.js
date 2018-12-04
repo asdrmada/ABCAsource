@@ -5,7 +5,7 @@ var postSchema = new mongoose.Schema({
     image   : String,
     opener  : String,
     body    : String,
-    created : String
+    created : {type: Date, default: Date.now}
 });
 
 module.exports = mongoose.model("Blog", postSchema);

@@ -1,23 +1,37 @@
-var mongoose = require("mongoose"),
-    Blog     = require("./models/blog"),
-    faker    = require("faker");
+const mongoose = require("mongoose"),
+      Blog     = require("./models/blog"),
+      faker    = require("faker");
     
-var testData = [ {
-    title:   faker.name.title(),
-    image:   faker.image.image(),
-    opener:  faker.lorem.sentence(),
-    body  :  faker.lorem.paragraph(),
-    created: faker.date.recent()
-    },
-    {
-    title:   faker.name.title(),
-    image:   faker.image.image(),
-    opener:  faker.lorem.sentence(),
-    body  :  faker.lorem.paragraph(),
-    created: faker.date.recent()
-    }
-    ];
-    
+const testData =
+      [{
+      title:   faker.name.title(),
+      image:   faker.image.image(),
+      opener:  faker.lorem.sentence(),
+      body  :  faker.lorem.paragraph(),
+      created: faker.date.recent()
+      },
+      {
+      title:   faker.name.title(),
+      image:   faker.image.image(),
+      opener:  faker.lorem.sentence(),
+      body  :  faker.lorem.paragraph(),
+      created: faker.date.recent()
+      },
+      {
+      title:   faker.name.title(),
+      image:   faker.image.image(),
+      opener:  faker.lorem.sentence(),
+      body  :  faker.lorem.paragraph(),
+      created: faker.date.recent()
+      },
+      {
+      title:   faker.name.title(),
+      image:   faker.image.image(),
+      opener:  faker.lorem.sentence(),
+      body  :  faker.lorem.paragraph(),
+      created: faker.date.recent()
+      }
+      ];
     
 
 function seedDB(){
