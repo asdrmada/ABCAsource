@@ -20,15 +20,16 @@ seedDB();
   
 // Routing
 app.get("/", function(req, res){
-      res.redirect("/blogs");
+      res.redirect("/blogs/1");
     });
     
-app.get("/blogs", function(req, res){
+app.get("/blogs/:page", function(req, res){
     const perPage = 2;
     const page = req.params.page || 1;
     
     Blog
         .find({})
+        .sort('date')
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec(function(err, blogs) {
@@ -46,10 +47,11 @@ app.get("/blogs", function(req, res){
     });
 });
 
-app.get("/blogs/:id", function(req, res){
+app.get("/blog/:id", function(req, res){
     Blog.findById(req.params.id, function(err, foundBlog){
         if(err){
             res.redirect("index");
+            console.log(err);
         } else {
             res.render("show", {blog: foundBlog});
         }
@@ -66,7 +68,7 @@ app.post("/index", function(req, res){
             res.render("/new");
             console.log(err);
         } else {
-            res.redirect("/index");
+            res.redirect("/blogs/1");
             console.log(newBlog);
         }
     });
