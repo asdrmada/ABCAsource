@@ -5,10 +5,12 @@ const express     = require("express"),
       mongoose    = require("mongoose"),
       faker       = require("faker"),
       seedDB      = require("./seeds"),
-      Blog        = require("./models/blog");
+      Blog        = require("./models/blog"),
+      Comments    = require("./models/comments");
  
 //Mongoose/Mongo set-up   
 mongoose.connect("mongodb://localhost/alexs_jojo_blog", { useNewUrlParser: true });
+
 
 //app set-up 
 app.set("view engine", "ejs");
@@ -24,26 +26,26 @@ app.get("/", function(req, res){
     });
     
 app.get("/blogs/:page", function(req, res){
-    const perPage = 2;
+    const perPage = 6;
     const page = req.params.page || 1;
     
-    Blog
-        .find({})
-        .sort('date')
+    Blog.find({})
+        .sort({created: 'desc'})
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec(function(err, blogs) {
-            Blog.count().exec(function(err, count){
-            if(err){
-               console.log(err);
-            } else {
-               res.render("index", {
-                   blogs: blogs,
-                   current: page,
-                   pages: Math.ceil(count / perPage)
-            });
-        }
-      });
+            Blog.countDocuments()
+                .exec(function(err, count){
+                if(err){
+                   console.log(err);
+                } else {
+                  res.render("index", {
+                    blogs: blogs,
+                    current: page,
+                    pages: Math.ceil(count / perPage)
+                });
+            }
+        });
     });
 });
 
