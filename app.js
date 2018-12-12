@@ -6,7 +6,7 @@ const express     = require("express"),
       faker       = require("faker"),
       seedDB      = require("./seeds"),
       Blog        = require("./models/blog"),
-      Comments    = require("./models/comments");
+      Comment     = require("./models/comments");
  
 //Mongoose/Mongo set-up   
 mongoose.connect("mongodb://localhost/alexs_jojo_blog", { useNewUrlParser: true });
@@ -72,6 +72,27 @@ app.post("/index", function(req, res){
         } else {
             res.redirect("/blogs/1");
             console.log(newBlog);
+        }
+    });
+});
+
+app.post("blog/:id", function(req, res){
+    Blog.findById(req.params.id, function(err, blog){
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        } else {
+            Comment.create(req.body.comment, function(err, comment){
+                if(err){
+                    res.redirect("back");
+                    console.log(err);
+                } else {
+                    comment.save();
+                    blog.comment.push();
+                    blog.save();
+                    res.redirect("blog/" + blog._id);
+                }
+            });
         }
     });
 });
