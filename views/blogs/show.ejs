@@ -1,4 +1,4 @@
-<% include ./partials/header %>
+<% include ../partials/header %>
 
 
     <!-- Page Content -->
@@ -28,24 +28,9 @@
           <p class="lead"> <%= blog.opener %> </p>
 
           <p> <%= blog.body %> </p>
-
-          <!-- Comments Form -->
-          <div class="card my-4">
-            <h5 class="card-header">Leave a Comment:</h5>
-            <div class="card-body">
-              <form>
-                <div class="form-group">
-                  <h6>Name:</h6>
-                  <textarea class="form-control" rows="1" name="comment[name]"></textarea>
-                </div>
-                <div class="form-group">
-                  <h6>Comment:</h6>
-                  <textarea class="form-control" rows="3" name="comment[body]"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-            </div>
-          </div>
+          
+          <!-- Comment Link -->
+          <a class="btn btn-info" href="/blog/<%= blog._id %>/comments/new"> Add a comment here!</a>
 
           <!-- Single Comment -->
         <% blog.comments.forEach(function(comment){ %>
@@ -128,5 +113,5 @@
 
     <!-- Footer -->
     
-<% include ./partials/footer %>
+<% include ../partials/footer %>
 
