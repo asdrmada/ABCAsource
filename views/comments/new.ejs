@@ -1,11 +1,11 @@
 <% include ../partials/header %>
 
-<div class="container new-from"></div>
+<div class="container new-form"></div>
 
           <div class="card my-4">
             <h5 class="card-header">Leave a Comment:</h5>
             <div class="card-body">
-              <form action="/blog/comments" method="POST">
+              <form action="/blog/<%= blog._id %>/comments" method="POST">
                 <div class="form-group">
                   <h6>Name:</h6>
                   <textarea class="form-control" rows="1" name="comment[name]"></textarea>

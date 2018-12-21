@@ -1,7 +1,7 @@
 const express = require("express"),
       router  = express.Router({mergerParams:true}),
-      Comment = require("../models/comments"),
-      Blog    = require("../models/blog");
+      Blog    = require("../models/blog"),
+      Comment = require("../models/comments");
 
 // Comment Routing
 router.get("/new", function(req, res) {
@@ -10,7 +10,8 @@ router.get("/new", function(req, res) {
           res.redirect("back");
           console.log(err);
       } else {
-          res.render("comments/new", {blog: foundBlog});
+          res.render("/comments/new", {blog: foundBlog});
+          console.log(foundBlog);
       }
   });
 });
@@ -30,7 +31,7 @@ router.post("/", function(req, res){
                     comment.save();
                     blog.comment.push();
                     blog.save();
-                    res.redirect("blog/" + blog._id);
+                    res.redirect("/blog/" + blog._id);
                 }
             });
         }

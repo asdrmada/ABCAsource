@@ -1,6 +1,7 @@
 const express  = require("express"),
-      router   = express.Router({mergerParams:true}),
+      router   = express.Router(),
       Blog     = require("../models/blog");
+
     //   Comments = require("../models/comments");
 
 // Routing
@@ -34,19 +35,26 @@ router.get("/blogs/:page", function(req, res){
 
     
 router.post("/blogs", function(req, res){
-    Blog.create(req.body.blog, function(err, newBlog){
+    let title   = req.body.blog.title,
+        image   = req.body.blog.image,
+        opener  = req.body.blog.opener,
+        body    = req.body.blog.body,
+        created = req.body.blog.created;
+    
+    const newBlog = {title: title, image: image, opener: opener, body: body, created: created};
+    Blog.create(newBlog, function(err, newlyCreated){
         if(err){
             res.render("/new");
             console.log(err);
         } else {
             res.redirect("/blogs/1");
-            console.log(newBlog);
+            console.log(newlyCreated);
         }
     });
 });
 
 router.get("/blog/:id", function(req, res){
-    Blog.findById(req.params.id, function(err, foundBlog){
+    Blog.findById(req.params.id).populate("comments").exec(function(err, foundBlog){
         if(err){
             res.redirect("index");
             console.log(err);
