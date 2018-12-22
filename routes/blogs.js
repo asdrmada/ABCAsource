@@ -60,6 +60,7 @@ router.get("/blog/:id", function(req, res){
             console.log(err);
         } else {
             res.render("blogs/show", {blog: foundBlog});
+            console.log(foundBlog);
         }
     });
 });

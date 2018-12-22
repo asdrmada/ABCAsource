@@ -18,14 +18,14 @@ mongoose.connect("mongodb://localhost/alexs_jojo_blog", { useNewUrlParser: true 
 //app set-up 
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.use(express.static(_dirname + "public"));
 
 
 // faker/DB seed
 seedDB();
 
 app.use("/", blogRoutes);
-app.use("blog/:id/comments", commentRoutes);
+app.use("/blog/:id/comments", commentRoutes);
 
 
 app.listen(process.env.PORT, process.env.IP, function(){

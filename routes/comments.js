@@ -1,17 +1,17 @@
 const express = require("express"),
-      router  = express.Router({mergerParams:true}),
+      router  = express.Router({mergeParams:true}),
       Blog    = require("../models/blog"),
       Comment = require("../models/comments");
 
 // Comment Routing
 router.get("/new", function(req, res) {
-  Blog.findById(req.params.id, function(err, foundBlog) {
+  Blog.findById(req.params.id, function(err, blog) {
       if(err){
           res.redirect("back");
           console.log(err);
       } else {
-          res.render("/comments/new", {blog: foundBlog});
-          console.log(foundBlog);
+          res.render("./comments/new", {blog: blog});
+          console.log(blog);
       }
   });
 });
