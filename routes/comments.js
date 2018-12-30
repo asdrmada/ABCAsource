@@ -22,14 +22,14 @@ router.post("/", function(req, res){
             console.log(err);
             res.redirect("back");
         } else {
-            Comment.create(req.body.comment, req.name.comment, function(err, comment){
+            Comment.create(req.body.comment, function(err, comment){
                 if(err){
                     res.redirect("back");
                     console.log(err);
                 } else {
                     console.log(comment);
                     comment.save();
-                    blog.comment.push();
+                    blog.comments.push(comment);
                     blog.save();
                     res.redirect("/blog/" + blog._id);
                 }
