@@ -1,12 +1,14 @@
 // NPM Packages and set up
-const express     = require("express"),
-      app         = express(),
-      bodyParser  = require("body-parser"),    
-      mongoose    = require("mongoose"),
-      faker       = require("faker"),
-      seedDB      = require("./seeds"),
-      Blog        = require("./models/blog"),
-      Comment     = require("./models/comments");
+const express       = require("express"),
+      app           = express(),
+      bodyParser    = require("body-parser"),    
+      mongoose      = require("mongoose"),
+      passport      = require("passport"),
+    //   localStragety = require("passport-local").Stragety,
+      faker         = require("faker"),
+      seedDB        = require("./seeds"),
+      Blog          = require("./models/blog"),
+      Comment       = require("./models/comments");
       
 const blogRoutes    = require("./routes/blogs"),
       commentRoutes = require("./routes/comments");
@@ -28,7 +30,7 @@ app.use("/", blogRoutes);
 app.use("/blog/:id/comments", commentRoutes);
 
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(3001, "localhost", function(){
     console.log("The server.....it's alive!!!");
 });
 
