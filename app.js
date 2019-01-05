@@ -12,7 +12,8 @@ const express       = require("express"),
       Comment       = require("./models/comments");
       
 const blogRoutes    = require("./routes/blogs"),
-      commentRoutes = require("./routes/comments");
+      commentRoutes = require("./routes/comments"),
+      authRoutes    = require("./routes/auth");
  
 //Mongoose/Mongo set-up   
 mongoose.connect("mongodb://localhost:27017/alexs_jojo_blog", { useNewUrlParser: true });
@@ -28,8 +29,13 @@ app.use(express.static(__dirname + "/public"));
 // faker/DB seed
 seedDB();
 
+// Passport/Authorization set up
+
+
+// Routing set up
 app.use("/", blogRoutes);
 app.use("/blog/:id/comments", commentRoutes);
+app.use("/", authRoutes);
 
 
 app.listen(3001, "localhost", function(){

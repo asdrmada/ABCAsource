@@ -23,3 +23,7 @@
 .card-img-top {
   padding: 50px;
 }
+
+#body-entry {
+  white-space: pre-wrap;
+}
