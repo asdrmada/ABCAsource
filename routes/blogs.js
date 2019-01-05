@@ -1,6 +1,7 @@
-const express  = require("express"),
-      router   = express.Router(),
-      Blog     = require("../models/blog");
+const express    = require("express"),
+      router     = express.Router(),
+      Blog       = require("../models/blog");
+    //   middleware = require("../middleware/index.js");
 
     //   Comments = require("../models/comments");
 
