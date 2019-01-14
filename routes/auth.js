@@ -10,6 +10,8 @@ router.post("/register", (req, res) => {
           password = req.body.password;
       
       const newUser = {username : username, password : password};
+      console.log(newUser);
+    res.redirect("/");
 });
   
 
