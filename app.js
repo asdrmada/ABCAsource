@@ -1,38 +1,62 @@
 // NPM Packages and set up
-const express       = require("express"),
-      app           = express(),
-      bodyParser    = require("body-parser"),    
-      mongoose      = require("mongoose"),
-      passport      = require("passport"),
-    //   localStragety = require("passport-local").Stragety,
-      faker         = require("faker"),
-      seedDB        = require("./seeds"), 
-      Blog          = require("./models/blog"),
-    //   User          = require("./models/user"),
-      Comment       = require("./models/comments");
-      
-const blogRoutes    = require("./routes/blogs"),
+const express = require("express"),
+  app         = express(),
+  bodyParser  = require("body-parser"),
+  mongoose    = require("mongoose"),
+  passport    = require("passport"),
+  flash       = require('connect-flash'),
+  bcrypt      = require("bcrypt-nodejs"),
+  faker       = require("faker"),
+  session     = require('express-session'),
+  seedDB      = require("./seeds"),
+  Blog        = require("./models/blog"),
+  Comment     = require("./models/comments");
+
+
+
+const blogRoutes = require("./routes/blogs"),
       commentRoutes = require("./routes/comments"),
-      authRoutes    = require("./routes/auth");
- 
+      authRoutes = require("./routes/auth");
+      
+      require('./config/passport')(passport);
 //Mongoose/Mongo set-up
-mongoose.connect("mongodb://localhost:27017/alexs_jojo_blog", { useNewUrlParser: true })
+mongoose.connect("mongodb://localhost:27017/alexs_jojo_blog", {
+    useNewUrlParser: true
+  })
   .then(() => console.log('MongoDB Connected!!'))
   .catch(err => console.log(err));
 // mongoose.connect("mongodb+srv:asdrmada:Gracie-b4rra@cluster0-r9fic.gcp.mongodb.net/test?retryWrites=true;", { useNewUrlParser: true });
 
 
 //app set-up 
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
+// Express session
+app.use(session({
+  secret: 'dio_brando',
+  resave: true,
+  saveUninitalised: true
+}));
+// Passport/Authorization set up
+app.use(passport.initialize());
+app.use(passport.session());
 
 // faker/DB seed
 seedDB();
 
-// Passport/Authorization set up
+// Flash config
+app.use(flash());
 
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg   = req.flash('error_msg');
+  res.locals.error       = req.flash('error');
+  next();
+});
 
 // Routing set up
 app.use("/", blogRoutes);
@@ -40,7 +64,6 @@ app.use("/blog/:id/comments", commentRoutes);
 app.use("/", authRoutes);
 
 
-app.listen(3001, "localhost", function(){
-    console.log("The server.....it's alive!!!");
+app.listen(3001, "localhost", function () {
+  console.log("The server.....it's alive!!!");
 });
-

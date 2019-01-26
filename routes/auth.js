@@ -1,37 +1,66 @@
 const express = require("express"),
-      router  = express.Router(),
-      User    = require("../models/user");
+      router = express.Router(),
+      bodyparser = require('body-parser');
+      bcrypt = require('bcrypt-nodejs'),
+      passport = require('passport'),
+      User = require("../models/user");
+
 
 router.get("/login", (req, res) => res.render("auth/login"));
-  
+
 router.get("/register", (req, res) => res.render("auth/register"));
 
 router.post("/register", (req, res) => {
-      let username = req.body.username,
-          password = req.body.password;
+            let username = req.body.username,
+                password = req.body.password;
 
-      User.findOne({username : username})
-      .then(user => {
-        if(user){
-            res.redirect('back');
-            alert("User already exists!!");
-        } else {
-        
-            const newUser = {username : username, password : password};
-            console.log(newUser);
+            // Check if username is already registered
+            User.findOne({
+                    username: username
+                })
+                .then(user => {
+                        if (user) {
+                            req.flash('error_msg', 'User already exists!!');
+                            res.redirect('back');                           
+                            console.log('User already exists, we ain\'t makin that, no sir.');
+                        } else {
 
-            User.create(newUser, function(err, newlyCreated){
-                if(err){
-                    res.redirect(back);
-                    console.log(err);
-                } else {
-                    res.redirect("login");
-                    console.log("User succsesfully created!");
-                }
-            });
-        }
-    });
+                            const newUser = {
+                                username: username,
+                                password: password
+                            };
+                            console.log(newUser);
+
+                            // Password Encryption
+                            bcrypt.genSalt(10, (err, salt) =>
+                                bcrypt.hash(newUser.password, salt, null, (err, hash) => {
+                                    if (err) throw err;
+                                    
+                                    newUser.password = hash;
+                                }));
+
+                                User.create(newUser, function (err, newlyCreated) {
+                                    if (err) {
+                                        req.flash('error_msg', 'An error has occurred!.....oh dear');
+                                        res.redirect(back);
+                                        console.log(err);
+                                    } else {
+                                        req.flash('success_msg', 'You are now registered!');
+                                        res.redirect("login");                                       
+                                        console.log(newUser);
+                                        console.log("User succsesfully created!");
+                                    }
+                                });
+                            }
+                        });
+                });
+
+router.post("/login", (req, res,next) => {
+    passport.authenticate('local', {
+         successRedirect: '/',
+         failureRedirect: '/login',
+         failureFlash: true }
+    )(req, res, next)
 });
-  
 
-module.exports = router;
+        module.exports = router;
