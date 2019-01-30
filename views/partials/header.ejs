@@ -35,5 +35,12 @@
                 
                 <li><i class="fab fa-codepen fa-3x" style="color: white"></i></li>
             </ul>
+
+            <% if(!currentUser) {%>
+
+            <%} else {%>
+            <a class='navbar-brand' href='/logout'>Log out?</a>
+            <% } %>
+        
             
          </nav>

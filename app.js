@@ -12,13 +12,12 @@ const express = require("express"),
   Blog        = require("./models/blog"),
   Comment     = require("./models/comments");
 
-
+  require('./config/passport')(passport);
 
 const blogRoutes = require("./routes/blogs"),
       commentRoutes = require("./routes/comments"),
       authRoutes = require("./routes/auth");
       
-      require('./config/passport')(passport);
 //Mongoose/Mongo set-up
 mongoose.connect("mongodb://localhost:27017/alexs_jojo_blog", {
     useNewUrlParser: true
@@ -27,6 +26,7 @@ mongoose.connect("mongodb://localhost:27017/alexs_jojo_blog", {
   .catch(err => console.log(err));
 // mongoose.connect("mongodb+srv:asdrmada:Gracie-b4rra@cluster0-r9fic.gcp.mongodb.net/test?retryWrites=true;", { useNewUrlParser: true });
 
+mongoose.set('useCreateIndex', true);
 
 //app set-up 
 app.use(bodyParser.urlencoded({
@@ -52,9 +52,12 @@ seedDB();
 app.use(flash());
 
 app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg   = req.flash('error_msg');
   res.locals.error       = req.flash('error');
+  res.locals.success     = req.flash('success');
   next();
 });
 
@@ -64,6 +67,6 @@ app.use("/blog/:id/comments", commentRoutes);
 app.use("/", authRoutes);
 
 
-app.listen(3001, "localhost", function () {
+app.listen(3001, "localhost", () => {
   console.log("The server.....it's alive!!!");
 });

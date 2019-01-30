@@ -1,6 +1,7 @@
 const express = require("express"),
-    router = express.Router(),
-    Blog = require("../models/blog");
+      router = express.Router(),
+      { isLoggedIn } = require('../config/index'),
+      Blog = require("../models/blog");
 //   middleware = require("../middleware/index.js");
 
 //   Comments = require("../models/comments");
@@ -76,7 +77,7 @@ router.get("/blog/:id", function (req, res) {
     });
 });
 
-router.get("/new", function (req, res) {
+router.get("/new", isLoggedIn, (req, res) => {
     res.render("blogs/new");
 });
 

@@ -1,12 +1,10 @@
-const middlewareObj = {};
-
-middlewareObj.isLoggedIn = function(req, res, next){
-    if(req.isAuthenticated){
+module.exports = {
+    isLoggedIn: function(req, res, next){
+    if(req.isAuthenticated()){
         return next();
     } else {
-        res.redirect(back),
-        alert("only logged in users!");
+        req.flash('error', 'logged in users only!');
+        res.redirect('back');
     }
+  }
 };
-
-module.exports = middlewareObj;

@@ -4,6 +4,11 @@
    <%= success_msg %>
    </div>
 <% } %>
+<% if(success_msg != ''){ %>
+   <div class='alert alert-success' role='alert'>
+   <%= success %>
+   </div>
+<% } %>
 <% if(error_msg != ''){ %>
    <div class='alert alert-danger' role='alert'>
    <%= error_msg %>
