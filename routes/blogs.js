@@ -81,4 +81,33 @@ router.get("/new", isLoggedIn, (req, res) => {
     res.render("blogs/new");
 });
 
+router.get('/blog/:id/edit', isLoggedIn, (req,res) => {
+    Blog.findById(req.params.id, (err, foundBlog) => {
+        res.render('blogs/edit', {blog : foundBlog});
+    });
+});
+
+router.put("/blog/:id", isLoggedIn, (req, res) => {
+    Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err, updatedBlog) => {
+        if(err){
+            req.flash('error_msg', 'An error has occured!')
+            res.redirect('/')        
+        } else {
+            res.redirect('/blog/' + req.params.id);
+        }
+    });
+});
+
+router.delete("/blog/:id", isLoggedIn, (req, res) => {
+    Blog.findByIdAndRemove(req.params.id, (err) => {
+        if(err){
+            req.flash('error_msg', 'An error has occured!');
+            res.redirect('/');
+        } else {
+            req.flash('success_msg', 'Blog has been Deleted!');
+            res.redirect('/');
+        }
+    });
+});
+
 module.exports = router;

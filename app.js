@@ -1,16 +1,17 @@
 // NPM Packages and set up
-const express = require("express"),
-  app         = express(),
-  bodyParser  = require("body-parser"),
-  mongoose    = require("mongoose"),
-  passport    = require("passport"),
-  flash       = require('connect-flash'),
-  bcrypt      = require("bcrypt-nodejs"),
-  faker       = require("faker"),
-  session     = require('express-session'),
-  seedDB      = require("./seeds"),
-  Blog        = require("./models/blog"),
-  Comment     = require("./models/comments");
+const express   = require("express"),
+  app           = express(),
+  bodyParser    = require("body-parser"),
+  mongoose      = require("mongoose"),
+  passport      = require("passport"),
+  flash         = require('connect-flash'),
+  methodOveride = require('method-override'),
+  bcrypt        = require("bcrypt-nodejs"),
+  faker         = require("faker"),
+  session       = require('express-session'),
+  seedDB        = require("./seeds"),
+  Blog          = require("./models/blog"),
+  Comment       = require("./models/comments");
 
   require('./config/passport')(passport);
 
@@ -32,6 +33,7 @@ mongoose.set('useCreateIndex', true);
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(methodOveride('_method'));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 

@@ -24,7 +24,19 @@
 
           <hr>
 
+          <div>
+          <% if(!currentUser) { %>
+
+          <% } else { %>
+             <a type='button' class='btn btn-warning' href='./<%= blog.id %>/edit'>Edit Blog</a>
+            <form id='delete-form' action='/blog/<%= blog.id %>?_method=DELETE' method='POST'>
+             <button type='button' class='btn btn-danger'>Delete Blog</button>
+            </form>
+          <% } %>
+          </div>
+
           <!-- Post Content -->
+
           <p class="lead"> <%= blog.opener %> </p>
 
           <p> <%= blog.body %> </p>
