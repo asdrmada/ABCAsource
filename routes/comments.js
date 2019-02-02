@@ -4,8 +4,8 @@ const express = require("express"),
       Comment = require("../models/comments");
 
 // Comment Routing
-router.get("/new", function(req, res) {
-  Blog.findById(req.params.id, function(err, blog) {
+router.get("/new", (req, res) => {
+  Blog.findById(req.params.id, (err, blog) => {
       if(err){
           res.redirect("back");
           console.log(err);
@@ -16,13 +16,13 @@ router.get("/new", function(req, res) {
   });
 });
 
-router.post("/", function(req, res){
-   Blog.findById(req.params.id, function(err, blog){
+router.post("/", (req, res) => {
+   Blog.findById(req.params.id, (err, blog) => {
         if(err){
             console.log(err);
             res.redirect("back");
         } else {
-            Comment.create(req.body.comment, function(err, comment){
+            Comment.create(req.body.comment, (err, comment) => {
                 if(err){
                     res.redirect("back");
                     console.log(err);

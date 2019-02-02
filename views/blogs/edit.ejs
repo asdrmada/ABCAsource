@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+
+<div class="container new-form">
+
+ <h1>Edit "<%= blog.title %>"</h1>
+
+ <form action="/blog/<%= blog.id %>?_method=PUT" method="POST">
+    <div class="form-group">
+      <label for="blog title">Title</label>
+      <input type="Text" class="form-control" name="blog[title]" value="<%= blog.title %>">
+    </div>
+    <div class="form-group">
+      <label for="blog Image">Image</label>
+      <input type="Text" class="form-control" name="blog[image]" value="<%= blog.image %>">
+    </div>
+    <div class="form-group">
+      <label for="blog opener">Opener</label>
+      <input type="Text" class="form-control" name="blog[opener]" value="<%= blog.opener %>">
+    </div>
+    <div class="form-group">
+      <label for="blog Body">Body</label>
+      <textarea type="Text" class="form-control" autocomplete='on' id="body-entry" rows="6" name="blog[body]" value="<%= blog.body %>"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<% include ../partials/footer %>

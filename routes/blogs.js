@@ -2,16 +2,13 @@ const express = require("express"),
       router = express.Router(),
       { isLoggedIn } = require('../config/index'),
       Blog = require("../models/blog");
-//   middleware = require("../middleware/index.js");
-
-//   Comments = require("../models/comments");
 
 // Routing
-router.get("/", function (req, res) {
+router.get("/", (req, res) => {
     res.redirect("/blogs/1");
 });
 
-router.get("/blogs/:page", function (req, res) {
+router.get("/blogs/:page", (req, res) => {
     const perPage = 6;
     const page = req.params.page || 1;
 
@@ -38,7 +35,7 @@ router.get("/blogs/:page", function (req, res) {
 });
 
 
-router.post("/blogs", function (req, res) {
+router.post("/blogs", (req, res) => {
     let title = req.body.blog.title,
         image = req.body.blog.image,
         opener = req.body.blog.opener,
@@ -52,7 +49,7 @@ router.post("/blogs", function (req, res) {
         body: body,
         created: created
     };
-    Blog.create(newBlog, function (err, newlyCreated) {
+    Blog.create(newBlog, (err, newlyCreated) => {
         if (err) {
             res.render("/new");
             console.log(err);
@@ -63,7 +60,7 @@ router.post("/blogs", function (req, res) {
     });
 });
 
-router.get("/blog/:id", function (req, res) {
+router.get("/blog/:id", (req, res) => {
     Blog.findById(req.params.id).populate("comments").exec(function (err, foundBlog) {
         if (err) {
             res.redirect("index");
@@ -83,6 +80,7 @@ router.get("/new", isLoggedIn, (req, res) => {
 
 router.get('/blog/:id/edit', isLoggedIn, (req,res) => {
     Blog.findById(req.params.id, (err, foundBlog) => {
+        console.log(foundBlog.body);
         res.render('blogs/edit', {blog : foundBlog});
     });
 });
