@@ -1,7 +1,19 @@
 body {
-  background-color: #2b2c2d;
+  background-color: #222324;
   color: white;
   border: #f70202be;
+}
+
+hr {
+  color: #e2e2e27a
+}
+
+.titles {
+  font-family: Orbitron;
+}
+
+.content {
+  font-family: 'Open sans', sans-serif;
 }
 
 .index-post {
@@ -32,6 +44,30 @@ body {
   text-shadow: 1px 1px #17171842;
   text-align: center;
   border-bottom: 0.5px solid #c50303be;
+}
+
+.jumbotron {
+  text-align: center;
+  background: #222324;
+}
+.jumbotron-content > h1 {
+  text-shadow: #c50303 2px 3px;
+  font-family: Orbitron;
+}
+.jumbotron-content > p {
+  color: #c50303;
+  font-family: Aldrich;
+}
+
+a {
+  color: #c70505
+}
+
+.btn-outline-danger {
+  color: #c70505;
+  background-color: transparent;
+  background-image: none;
+  border-color: #c70505
 }
 
 .navbar-nav > li {

@@ -1,37 +1,59 @@
-const express = require("express"),
-      router = express.Router(),
+const express        = require("express"),
+      router         = express.Router(),
       { isLoggedIn } = require('../config/index'),
-      Blog = require("../models/blog");
+      Blog           = require("../models/blog");
+
 
 // Routing
 router.get("/", (req, res) => {
     res.redirect("/blogs/1");
-});
+});  
 
 router.get("/blogs/:page", (req, res) => {
-    const perPage = 6;
-    const page = req.params.page || 1;
 
-    Blog.find({})
-        .sort({
-            created: 'desc'
-        })
-        .skip((perPage * page) - perPage)
-        .limit(perPage)
-        .exec(function (err, blogs) {
-            Blog.countDocuments()
-                .exec(function (err, count) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.render("blogs/index", {
-                            blogs: blogs,
-                            current: page,
-                            pages: Math.ceil(count / perPage)
-                        });
-                    }
-                });
+        const perPage = 6;
+        const page = req.params.page || 1;
+    
+        Blog.find({})
+            .sort({created: 'desc'})
+            .skip((perPage * page) - perPage)
+            .limit(perPage)
+            .exec((err, blogs) => {
+                Blog.countDocuments()
+                    .exec((err, count) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.render("blogs/index", {
+                                blogs: blogs,
+                                current: page,
+                                pages: Math.ceil(count / perPage)
+                            });
+                        }
+                    });
+            });
+});
+
+router.get('/blogs/', (req, res) => {
+
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    console.log(regex);
+
+    Blog.find({ 'title': regex })
+        .exec((err, foundBlogs) => {
+            if(err){
+                res.redirect('/blogs/1');
+            } else {
+                if(foundBlogs.length < 1){
+                    req.flash('error_msg', 'No Posts found!');
+                    res.redirect('back');
+                } else {
+                console.log(foundBlogs);
+                res.render("blogs/searchIndex", { blogs: foundBlogs });
+                }
+            }
         });
+
 });
 
 
@@ -61,7 +83,7 @@ router.post("/blogs", (req, res) => {
 });
 
 router.get("/blog/:id", (req, res) => {
-    Blog.findById(req.params.id).populate("comments").exec(function (err, foundBlog) {
+    Blog.findById(req.params.id).populate("comments").exec((err, foundBlog) => {
         if (err) {
             res.redirect("index");
             console.log(err);
@@ -107,5 +129,9 @@ router.delete("/blog/:id", isLoggedIn, (req, res) => {
         }
     });
 });
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;

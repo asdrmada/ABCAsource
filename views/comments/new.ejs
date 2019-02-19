@@ -1,8 +1,7 @@
 <% include ../partials/header %>
 
-<div class="container new-form"></div>
+<div class="container new-form">
 
-          <div class="card my-4">
             <h5 class="card-header">Leave a Comment:</h5>
             <div class="card-body">
               <form action="/blog/<%= blog._id %>/comments" method="POST">
@@ -14,10 +13,9 @@
                   <h6>Comment:</h6>
                   <textarea class="form-control" rows="3" name="comment[body]"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-outline-danger titles">Submit</button>
               </form>
             </div>
-          </div>
           
 </div>
 

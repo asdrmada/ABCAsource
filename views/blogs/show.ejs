@@ -10,12 +10,12 @@
         <div class="col-lg-8">
 
           <!-- Title -->
-          <h1 class="mt-4"><%= blog.title %></h1>
+          <h1 class="mt-4 titles"><%= blog.title %></h1>
 
           <!-- Date/Time -->
           <p> <%= blog.created %> </p>
           
-          <a href="/"><button class="btn bt-secondary">< Back</button></a>
+          <a href="/"><button class="btn bt-secondary titles">< Back</button></a>
 
           <hr>
 
@@ -37,20 +37,22 @@
 
           <!-- Post Content -->
 
-          <p class="lead"> <%= blog.opener %> </p>
+          <p class="lead content"> <%= blog.opener %> </p>
 
-          <p> <%= blog.body %> </p>
+          <p class="content"> <%= blog.body %> </p>
           
+        <hr>
+
           <!-- Comment Link -->
-          <a class="btn btn-info mb-4" href="/blog/<%= blog._id %>/comments/new"> Add a comment here!</a>
+          <a class="btn btn btn-outline-danger mb-4 titles" href="/blog/<%= blog._id %>/comments/new"> Add a comment here!</a>
 
           <!-- Single Comment -->
         <% blog.comments.forEach(function(comment){ %>
           <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
             <div class="media-body">
-              <h5 class="mt-0"><%= comment.name %></h5>
-              <p><%= comment.body %></p>
+              <h5 class="mt-0 titles"><%= comment.name %></h5>
+              <p class="content"><%= comment.body %></p>
+              <hr>
             </div>
           </div>
         <% }) %>
@@ -60,25 +62,27 @@
         <div class="col-md-4">
 
           <!-- Search Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Search</h5>
+          <div class="card my-4 side-widget">
+            <h5 class="card-header titles">Search</h5>
             <div class="card-body">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
+              <form action="/blogs/" method="GET">
+                <input type="text" class="form-control" placeholder="Search for..." name="search">
                 <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Go!</button>
+                  <button class="btn btn-outline-danger titles" type="submit" value="search">Go!</button>
                 </span>
+              </form>
               </div>
             </div>
           </div>
 
           <!-- Categories Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Categories</h5>
+          <div class="card my-4 side-widget">
+            <h5 class="card-header titles">Categories</h5>
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
+                  <ul class="list-unstyled mb-0 content">
                     <li>
                       <a href="#">Web Design</a>
                     </li>
@@ -91,7 +95,7 @@
                   </ul>
                 </div>
                 <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
+                  <ul class="list-unstyled mb-0 content">
                     <li>
                       <a href="#">JavaScript</a>
                     </li>
@@ -109,8 +113,8 @@
 
           <!-- Side Widget -->
           <div class="card my-4 side-widget">
-            <h5 class="card-header">Side Widget</h5>
-            <div class="card-body">
+            <h5 class="card-header titles">Side Widget</h5>
+            <div class="card-body content">
               You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
             </div>
           </div>
