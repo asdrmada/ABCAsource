@@ -18,9 +18,11 @@ const express   = require("express"),
 const blogRoutes = require("./routes/blogs"),
       commentRoutes = require("./routes/comments"),
       authRoutes = require("./routes/auth");
-      
+
+
+
 //Mongoose/Mongo set-up
-mongoose.connect("mongodb://localhost:27017/alexs_jojo_blog", {
+mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true
   })
   .then(() => console.log('MongoDB Connected!!'))
@@ -49,7 +51,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // faker/DB seed
-seedDB();
+// seedDB();
 
 // Flash config
 app.use(flash());
@@ -70,6 +72,6 @@ app.use("/blog/:id/comments", commentRoutes);
 app.use("/", authRoutes);
 
 
-app.listen(3001, "localhost", () => {
+app.listen(process.env.PORT, process.env.IP, () => {
   console.log("The server.....it's alive!!!");
 });

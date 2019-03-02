@@ -50,33 +50,7 @@ function seedDB(){
 }
 
 
-console.log(testData);
-
-// const commentTest = [{
-//     name: faker.name.firstName() + " " + faker.name.lastName(),
-//     body: faker.lorem.paragraph()
-// }];
-
-// function seedDB(){
-//     Comment.deleteMany({}, function(err){
-//         if(err){
-//             console.log(err);
-//         } else {
-//             console.log("Comments section clear!");
-//             commentTest.forEach(function(seed){
-//                 Comment.create(seed, function(err, comment){
-//                     if(err){
-//                         console.log(err);
-//                     } else {
-//                         console.log("faker comment created!");
-//                     }
-//                 });
-//             });
-//         }
-//     });
-// }
-
-// console.log(commentTest);
+// console.log(testData);
 
 module.exports = seedDB;
 

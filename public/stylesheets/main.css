@@ -82,6 +82,15 @@ a {
   text-align: center;
 }
 
+.navbar.center .navbar-inner {
+  text-align: center;
+}
+
+.navbar.center .navbar-inner .nav {
+  display:inline-block;
+  float: none;
+}
+
 .new-form {
   margin-top: 20px;
   padding: 30px;
@@ -90,6 +99,10 @@ a {
 .card {
   padding-left: 35px;
   padding-right: 35px;
+}
+
+.contact-card {
+  text-align: center;
 }
 
 .card-img-top {

@@ -1,14 +1,15 @@
 const express = require("express"),
       router = express.Router(),
-      bodyparser = require('body-parser');
+      bodyparser = require('body-parser'),
       bcrypt = require('bcrypt-nodejs'),
+      { isLoggedIn } = require('../config/index'),
       passport = require('passport'),
       User = require("../models/user");
 
 
 router.get("/login", (req, res) => res.render("auth/login"));
 
-router.get("/register", (req, res) => res.render("auth/register"));
+router.get("/register", isLoggedIn, (req, res) => res.render("auth/register"));
 
 // Registration handle
 router.post("/register", (req, res) => {
