@@ -20,14 +20,14 @@ const blogRoutes = require("./routes/blogs"),
       authRoutes = require("./routes/auth");
 
 
-
 //Mongoose/Mongo set-up
-mongoose.connect(process.env.DATABASE_URL, {
+mongoose.connect(process.env.DATABASEURL, {
     useNewUrlParser: true
   })
   .then(() => console.log('MongoDB Connected!!'))
   .catch(err => console.log(err));
 // mongoose.connect("mongodb+srv:asdrmada:Gracie-b4rra@cluster0-r9fic.gcp.mongodb.net/test?retryWrites=true;", { useNewUrlParser: true });
+// 'mongodb://localhost:27017/alexs_jojo_blog'
 
 mongoose.set('useCreateIndex', true);
 
