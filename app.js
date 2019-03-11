@@ -19,6 +19,7 @@ const blogRoutes = require("./routes/blogs"),
       commentRoutes = require("./routes/comments"),
       authRoutes = require("./routes/auth");
 
+console.log(process.env.DATABASEURL);
 
 //Mongoose/Mongo set-up
 mongoose.connect(process.env.DATABASEURL, {
@@ -26,7 +27,7 @@ mongoose.connect(process.env.DATABASEURL, {
   })
   .then(() => console.log('MongoDB Connected!!'))
   .catch(err => console.log(err));
-// mongoose.connect("mongodb+srv:asdrmada:Gracie-b4rra@cluster0-r9fic.gcp.mongodb.net/test?retryWrites=true;", { useNewUrlParser: true });
+// mongoose.connect("mongodb+srv:asdrmada:hqZien1tEGh6gxVV@cluster0-r9fic.gcp.mongodb.net/alexs_jojo_blog?retryWrites=true;", { useNewUrlParser: true });
 // 'mongodb://localhost:27017/alexs_jojo_blog'
 
 mongoose.set('useCreateIndex', true);
@@ -42,6 +43,10 @@ app.set("view engine", "ejs");
 
 // Express session
 app.use(session({
+  cookie:{
+    secure: true,
+    maxAge:60000
+       },
   secret: 'dio_brando',
   resave: true,
   saveUninitalised: true
