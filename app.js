@@ -45,8 +45,8 @@ app.set("view engine", "ejs");
 // Express session
 app.use(session({
   secret: 'dio_brando',
-  resave: false,
-  saveUninitalised: false,
+  resave: true,
+  saveUninitalised: true,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
   cookie: { maxAge: 180 * 60 * 1000 }
 }));
