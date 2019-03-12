@@ -1,6 +1,8 @@
 // NPM Packages and set up
 const express   = require("express"),
   app           = express(),
+  session       = require('express-session'),
+  MongoStore    = require('connect-mongoose')(session),
   bodyParser    = require("body-parser"),
   mongoose      = require("mongoose"),
   passport      = require("passport"),
@@ -8,8 +10,6 @@ const express   = require("express"),
   methodOveride = require('method-override'),
   bcrypt        = require("bcrypt-nodejs"),
   faker         = require("faker"),
-  session       = require('express-session'),
-  MongoStore    = require('connect-mongoose')(session),
   seedDB        = require("./seeds"),
   Blog          = require("./models/blog"),
   Comment       = require("./models/comments");
