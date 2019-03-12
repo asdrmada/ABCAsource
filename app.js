@@ -2,7 +2,7 @@
 const express   = require("express"),
   app           = express(),
   session       = require('express-session'),
-  MongoStore    = require('connect-mongoose')(session),
+  // MongoStore    = require('connect-mongoose')(session),
   bodyParser    = require("body-parser"),
   mongoose      = require("mongoose"),
   passport      = require("passport"),
@@ -45,10 +45,10 @@ app.set("view engine", "ejs");
 // Express session
 app.use(session({
   secret: 'dio_brando',
-  resave: true,
-  saveUninitalised: true,
-  store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  cookie: { maxAge: 180 * 60 * 1000 }
+  resave: false,
+  saveUninitalised: false
+  // store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  // cookie: {httpOnly: true, maxAge: 180 * 60 * 1000 }
 }));
 
 // Passport/Authorization set up
