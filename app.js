@@ -9,6 +9,7 @@ const express   = require("express"),
   bcrypt        = require("bcrypt-nodejs"),
   faker         = require("faker"),
   session       = require('express-session'),
+  MongoStore    = require('connect-mongoose')(session),
   seedDB        = require("./seeds"),
   Blog          = require("./models/blog"),
   Comment       = require("./models/comments");
@@ -45,7 +46,9 @@ app.set("view engine", "ejs");
 app.use(session({
   secret: 'dio_brando',
   resave: false,
-  saveUninitalised: false
+  saveUninitalised: false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  cookie: { maxAge: 180 * 60 * 1000 }
 }));
 
 // Passport/Authorization set up
