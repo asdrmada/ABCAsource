@@ -43,14 +43,11 @@ app.set("view engine", "ejs");
 
 // Express session
 app.use(session({
-  cookie:{
-    secure: true,
-    maxAge:60000
-       },
   secret: 'dio_brando',
-  resave: true,
-  saveUninitalised: true
+  resave: false,
+  saveUninitalised: false
 }));
+
 // Passport/Authorization set up
 app.use(passport.initialize());
 app.use(passport.session());
