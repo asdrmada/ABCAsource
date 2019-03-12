@@ -9,7 +9,7 @@ const express = require("express"),
 
 router.get("/login", (req, res) => res.render("auth/login"));
 
-router.get("/register", (req, res) => res.render("auth/register"));
+router.get("/register", isLoggedIn, (req, res) => res.render("auth/register"));
 
 // Registration handle
 router.post("/register", (req, res) => {

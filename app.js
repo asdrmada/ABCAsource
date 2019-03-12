@@ -2,7 +2,6 @@
 const express   = require("express"),
   app           = express(),
   session       = require('express-session'),
-  // MongoStore    = require('connect-mongoose')(session),
   bodyParser    = require("body-parser"),
   mongoose      = require("mongoose"),
   passport      = require("passport"),
@@ -28,7 +27,6 @@ mongoose.connect(process.env.DATABASEURL, {
   })
   .then(() => console.log('MongoDB Connected!!'))
   .catch(err => console.log(err));
-// mongoose.connect("mongodb+srv:asdrmada:hqZien1tEGh6gxVV@cluster0-r9fic.gcp.mongodb.net/alexs_jojo_blog?retryWrites=true;", { useNewUrlParser: true });
 // 'mongodb://localhost:27017/alexs_jojo_blog'
 
 mongoose.set('useCreateIndex', true);
@@ -47,8 +45,6 @@ app.use(session({
   secret: 'dio_brando',
   resave: false,
   saveUninitalised: false
-  // store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  // cookie: {httpOnly: true, maxAge: 180 * 60 * 1000 }
 }));
 
 // Passport/Authorization set up
